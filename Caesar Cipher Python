@@ -1,0 +1,65 @@
+alphabet_lower = "abcdefghijklmnopqrstuvwxyz"
+alphabet_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def decoder(message, offset):
+    decoded_message = []
+    for i in range(len(message)):
+        if message[i] in alphabet_lower:
+            x = alphabet_lower.find(message[i])
+            y = 0
+            while y < offset:
+                x -= 1
+                if x < 0:    
+                    x = 25
+                y += 1
+            decoded_message.append(alphabet_lower[x])
+        elif message[i] in alphabet_upper:
+            x = alphabet_upper.find(message[i])
+            y = 0
+            while y < offset:
+                x -= 1
+                if x < 0:    
+                    x = 25
+                y += 1
+            decoded_message.append(alphabet_upper[x])
+        else:
+            decoded_message.append(message[i])
+    return "".join(decoded_message)
+
+def encoder(message, offset):
+    encoded_message = []
+    for i in range(len(message)):
+        if message[i] in alphabet_lower:
+            x = alphabet_lower.find(message[i])
+            y = 0
+            while y < offset:
+                x += 1
+                if x > 25:    
+                    x = 0
+                y += 1
+            encoded_message.append(alphabet_lower[x])
+        elif message[i] in alphabet_upper:
+            x = alphabet_upper.find(message[i])
+            y = 0
+            while y < offset:
+                x += 1
+                if x > 25:    
+                    x = 0
+                y += 1
+            encoded_message.append(alphabet_upper[x])
+        else:
+            encoded_message.append(message[i])
+    return "".join(encoded_message)
+
+text = input("Please enter your text:")
+offset = input("Please enter the offset value:")
+offset = int(offset)
+
+decision = input("Do you want to Decode or Encode (D or E)?:")
+
+if decision == "D":
+    print(decoder(text, offset))
+elif decision == "E":
+    print(encoder(text, offset))
+else:
+    print("INVALID ANSWER! PLEASE TRY AGAIN!")
